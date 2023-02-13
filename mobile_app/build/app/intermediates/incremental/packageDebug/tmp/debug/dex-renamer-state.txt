@@ -1,0 +1,4 @@
+#Mon Feb 13 11:26:18 GMT 2023
+base.0=/mobile_app/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
