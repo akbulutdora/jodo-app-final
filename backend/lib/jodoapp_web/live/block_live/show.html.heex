@@ -1,0 +1,41 @@
+<h1>Show Block</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.block_show_path(@socket, :show, @block)}>
+    <.live_component
+      module={JodoappWeb.BlockLive.FormComponent}
+      id={@block.id}
+      title={@page_title}
+      action={@live_action}
+      block={@block}
+      return_to={Routes.block_show_path(@socket, :show, @block)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @block.title %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @block.description %>
+  </li>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @block.type %>
+  </li>
+
+  <li>
+    <strong>Completed at:</strong>
+    <%= @block.completed_at %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.block_show_path(@socket, :edit, @block), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.block_index_path(@socket, :index) %></span>

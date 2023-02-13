@@ -1,0 +1,45 @@
+<h1>Listing Blocks</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.block_index_path(@socket, :index)}>
+    <.live_component
+      module={JodoappWeb.BlockLive.FormComponent}
+      id={@block.id || :new}
+      title={@page_title}
+      action={@live_action}
+      block={@block}
+      return_to={Routes.block_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Completed at</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="blocks">
+    <%= for block <- @blocks do %>
+      <tr id={"block-#{block.id}"}>
+        <td><%= block.title %></td>
+        <td><%= block.description %></td>
+        <td><%= block.type %></td>
+        <td><%= block.completed_at %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.block_show_path(@socket, :show, block) %></span>
+          <span><%= live_patch "Edit", to: Routes.block_index_path(@socket, :edit, block) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: block.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Block", to: Routes.block_index_path(@socket, :new) %></span>

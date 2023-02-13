@@ -1,0 +1,35 @@
+<div>
+  <h2><%= @title %></h2>
+
+  <.form
+    let={f}
+    for={@changeset}
+    id="block-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save">
+  
+    <%= label f, :title %>
+    <%= textarea f, :title %>
+    <%= error_tag f, :title %>
+
+    <%= label f, :user_id %>
+    <%= textarea f, :user_id %>
+    <%= error_tag f, :user_id %>
+  
+    <%= label f, :description %>
+    <%= textarea f, :description %>
+    <%= error_tag f, :description %>
+
+    <%= select f, :type, ["todo", "text"] %>
+    <%= error_tag f, :type %>
+  
+    <%= label f, :completed_at %>
+    <%= text_input f, :completed_at %>
+    <%= error_tag f, :completed_at %>
+  
+    <div>
+      <%= submit "Save", phx_disable_with: "Saving..." %>
+    </div>
+  </.form>
+</div>
