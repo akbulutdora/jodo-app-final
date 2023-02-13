@@ -1,0 +1,34 @@
+services:
+    api:  
+      build: ./backend
+      command: /app/entrypoint.sh
+      volumes:
+      - ./backend:/app
+      environment:
+        PGUSER: postgres
+        PGPASSWORD: postgres
+        PGDATABASE: jodoapp_db
+        PGHOST: db
+        PGPORT: 5432  
+        PGDATA: /var/lib/postgresql/data/database_files/
+      ports:
+        - 4000:4000 
+      depends_on:
+        - db
+    db:
+      image: postgres:15
+      ports:
+        - 5432:5432
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+      restart: always
+      # volumes:
+      #   - ./postgresql.conf:/etc/postgresql.conf
+      #   - ./pg-data:/var/lib/postgresql/data
+    mobile_app:
+      build: ./mobile_app
+      volumes: 
+        - ./mobile_app:/mobile_app
+      depends_on: 
+        - api
